@@ -3,7 +3,7 @@
 An open-source game library management web application developed collaboratively using GitHub.
 
 ## Project Goal
-The goal of this project is to create a simple dynamic website where users can browse and discover games through a web interface.
+The goal of this project is to create a simple dynamic website where users can browse and discover games through a web interface.The application will use PHP and a relational database to support basic CRUD operations for game information.
 
 ## Planned Features
 - Display game titles
