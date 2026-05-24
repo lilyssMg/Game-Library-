@@ -1,0 +1,14 @@
+CREATE TABLE members (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    student_id TEXT NOT NULL,
+    email TEXT NOT NULL,
+    bio TEXT NOT NULL
+);
+
+INSERT INTO members (id, name, student_id, email, bio) VALUES
+(1, 'Michelle Davila', '413854752', 'mich.davila08@gmail.com', 'Guatemalan girl studying CS in Taiwan one coffee away from fixing it.'),
+(2, 'Lily', '413855353', 'lilyssmg@gmail.com', 'Computer Science student at Tamkang University.'),
+(3, 'Gino', '413850073', 'ppple1872@gmail.com', 'CS student.'),
+(4, '徐毓宏', '413850206', '413850206@o365.tku.edu.tw', 'I am currently a sophomore student specializing in Computer Science within the all-English program. Outside of my studies, I am an enthusiast of competitive gaming and enjoy playing various online titles.'),
+(5, '李睿恩', '413850222', '413850222@o365.tku.edu.tw', 'Hello I am Bruce.');
