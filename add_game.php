@@ -1,4 +1,4 @@
-php<?php
+<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // TODO: insert into database
     echo "<p>Game submitted (DB not connected yet).</p>";
