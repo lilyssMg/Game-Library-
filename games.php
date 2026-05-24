@@ -6,6 +6,14 @@ $games = [
     ["The Legend of Zelda", "Adventure"]
 ];
 
+$user_defined_games = [];
+
+$db = new PDO('sqlite:' . __DIR__ . '/database/members.db');
+
+$results = $db->query("SELECT * FROM games");
+while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+  $user_defined_games[] = [$row['title'], $row['genre']];
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +29,8 @@ $games = [
 
 <hr>
 
+<h2>predefined games</h2>
+
 <?php foreach ($games as $game): ?>
     <p>
         <strong><?php echo htmlspecialchars($game[0]); ?></strong>
@@ -28,5 +38,13 @@ $games = [
     </p>
 <?php endforeach; ?>
 
+<h2>User defined games</h2>
+
+<?php foreach ($user_defined_games as $game): ?>
+    <p>
+        <strong><?php echo htmlspecialchars($game[0]); ?></strong>
+        (<?php echo htmlspecialchars($game[1]); ?>)
+    </p>
+<?php endforeach; ?>
 </body>
 </html>

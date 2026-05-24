@@ -1,6 +1,6 @@
 <?php
 
-$db = new SQLite3(__DIR__ . '/members.db');
+$db = new SQLite3(__DIR__ . '/database/members.db');
 
 if (php_sapi_name() === 'cli' && isset($argv[1])) {
     parse_str($argv[1], $_GET);

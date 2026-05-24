@@ -1,7 +1,16 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // TODO: insert into database
-    echo "<p>Game submitted (DB not connected yet).</p>";
+    $db = new PDO('sqlite:' . __DIR__ . '/database/members.db');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $stmt = $db->prepare('INSERT INTO games (title, genre, description) VALUES (:title, :genre, :description)');
+    $stmt->execute([
+        ':title'       => $_POST['title'],
+        ':genre'       => $_POST['genre'],
+        ':description' => $_POST['description'],
+    ]);
+
+    echo "<p>Game added successfully!</p>";
 }
 ?>
 
