@@ -14,7 +14,11 @@ $db = get_pdo();
 
 $results = $db->query("SELECT * FROM games");
 while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
-  $user_defined_games[] = [$row['title'], $row['genre']];
+  $user_defined_games[] = [
+      $row['id'],
+      $row['title'],
+      $row['genre']
+  ];
 }
 ?>
 
@@ -57,19 +61,26 @@ while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
 <h2>User defined games</h2>
 
 <?php foreach ($user_defined_games as $game): ?>
-    
-    <div class="card">
+
+<div class="card">
 
     <strong>
-        <?php echo htmlspecialchars($game[0]); ?>
+        <?php echo htmlspecialchars($game[1]); ?>
     </strong>
 
     <br>
 
     Genre:
-    <?php echo htmlspecialchars($game[1]); ?>
+    <?php echo htmlspecialchars($game[2]); ?>
+
+    <br><br>
+
+    <a href="delete_game.php?id=<?php echo $game[0]; ?>">
+        Delete
+    </a>
 
 </div>
+
 <?php endforeach; ?>
 </body>
 </html>
