@@ -1,7 +1,9 @@
 <?php
+
+require_once __DIR__ . '/database/db.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $db = new PDO('sqlite:' . __DIR__ . '/database/members.db');
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db = get_pdo();
 
     $stmt = $db->prepare('INSERT INTO games (title, genre, description) VALUES (:title, :genre, :description)');
     $stmt->execute([

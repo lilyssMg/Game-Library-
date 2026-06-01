@@ -1,8 +1,8 @@
 CREATE TABLE members (
-    id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    student_id TEXT NOT NULL,
-    email TEXT NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    student_id VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
     bio TEXT NOT NULL
 );
 

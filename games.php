@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/database/db.php';
+
 $games = [
     ["Minecraft", "Sandbox"],
     ["Stardew Valley", "Simulation"],
@@ -8,7 +10,7 @@ $games = [
 
 $user_defined_games = [];
 
-$db = new PDO('sqlite:' . __DIR__ . '/database/members.db');
+$db = get_pdo();
 
 $results = $db->query("SELECT * FROM games");
 while ($row = $results->fetch(PDO::FETCH_ASSOC)) {

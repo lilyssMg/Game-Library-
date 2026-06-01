@@ -1,6 +1,8 @@
 <?php
 
-$db = new SQLite3(__DIR__ . '/database/members.db');
+require_once __DIR__ . '/database/db.php';
+
+$db = get_pdo();
 
 if (php_sapi_name() === 'cli' && isset($argv[1])) {
     parse_str($argv[1], $_GET);
@@ -14,7 +16,7 @@ if (!isset($_GET['id'])) {
     echo "<a href='index.php'>Home</a>";
     echo "<h1>Group Members</h1>";
 
-    while ($row = $results->fetchArray()) {
+    while ($row = $results->fetch()) {
         echo "<a href='member.php?id=" . $row['id'] . "'>";
         echo htmlspecialchars($row['name']);
         echo "</a><br><br>";
@@ -26,10 +28,9 @@ if (!isset($_GET['id'])) {
 
     $id = (int) $_GET['id'];
 
-    $result = $db->querySingle(
-        "SELECT * FROM members WHERE id = $id",
-        true
-    );
+    $stmt = $db->prepare("SELECT * FROM members WHERE id = ?");
+    $stmt->execute([$id]);
+    $result = $stmt->fetch();
 
     echo "<!DOCTYPE html><html><head><title>Member</title></head><body>";
     echo "<a href='index.php'>Home</a>";
