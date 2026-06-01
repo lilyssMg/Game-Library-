@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':description' => $_POST['description'],
     ]);
 
-    echo "<p>Game added successfully!</p>";
+    echo "<div class='card'>Game added successfully!</div>";
 }
 ?>
 
@@ -20,14 +20,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Add Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<nav>
+    <a href="index.php">Home</a>
+    <a href="games.php">Games</a>
+    <a href="add_game.php">Add Game</a>
+    <a href="member.php">Members</a>
+</nav>
+
 <h1>Add Game</h1>
 
-<a href="index.php">Home</a>
-
 <hr>
+
+<div class="card">
 
 <form method="POST">
     <label>Game Title:</label><br>
@@ -47,6 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <button type="submit">Submit</button>
 </form>
+
+</div>
 
 </body>
 </html>
