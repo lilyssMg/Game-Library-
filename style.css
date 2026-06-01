@@ -233,14 +233,22 @@ input[type="file"] {
 }
 
 .cover-cell img {
-    width: 48px;
-    height: 48px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     border-radius: 4px;
     display: block;
 }
 
 .no-cover { color: var(--text-muted); font-size: 1.2rem; }
+
+.game-desc {
+    margin-top: 4px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    max-width: 40ch;
+    line-height: 1.5;
+}
 
 .actions { white-space: nowrap; }
 .actions a { margin-right: 12px; font-size: 0.875rem; }

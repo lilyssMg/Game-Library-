@@ -82,7 +82,7 @@ $genres = $db->query("SELECT DISTINCT genre FROM games WHERE genre IS NOT NULL A
         <thead>
             <tr>
                 <th>Cover</th>
-                <th>Title</th>
+                <th>Title &amp; Description</th>
                 <th>Genre</th>
                 <th>Actions</th>
             </tr>
@@ -98,7 +98,12 @@ $genres = $db->query("SELECT DISTINCT genre FROM games WHERE genre IS NOT NULL A
                         <span class="no-cover">—</span>
                     <?php endif; ?>
                 </td>
-                <td><?php echo htmlspecialchars($game['title']); ?></td>
+                <td>
+                    <strong><?php echo htmlspecialchars($game['title']); ?></strong>
+                    <?php if (!empty($game['description'])): ?>
+                        <p class="game-desc"><?php echo htmlspecialchars($game['description']); ?></p>
+                    <?php endif; ?>
+                </td>
                 <td><?php echo htmlspecialchars($game['genre']); ?></td>
                 <td class="actions">
                     <a href="edit_game.php?id=<?php echo (int) $game['game_id']; ?>">Edit</a>
