@@ -14,6 +14,8 @@ CREATE TABLE games (
     title VARCHAR(100),
     genre VARCHAR(50),
     description TEXT
+    image VARCHAR(255)
+    
 );
 
 -- Sample member data
