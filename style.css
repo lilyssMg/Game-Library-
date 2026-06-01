@@ -1,40 +1,376 @@
+/* ── Reset & base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --surface:      oklch(97% 0.007 240);
+    --surface-2:    oklch(93% 0.009 240);
+    --border:       oklch(86% 0.012 240);
+    --text:         oklch(18% 0.010 240);
+    --text-muted:   oklch(48% 0.010 240);
+    --accent:       oklch(48% 0.18  245);
+    --accent-hover: oklch(42% 0.19  245);
+    --accent-fg:    oklch(98% 0.005 240);
+    --danger:       oklch(50% 0.20  25);
+    --danger-hover: oklch(44% 0.21  25);
+    --success:      oklch(50% 0.16  150);
+    --nav-bg:       oklch(22% 0.008 240);
+    --nav-fg:       oklch(82% 0.008 240);
+    --nav-fg-hover: oklch(98% 0.005 240);
+    --radius:       6px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+html { font-size: 14px; }
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
+    font-family: var(--font);
+    background: var(--surface);
+    color: var(--text);
+    line-height: 1.55;
+    min-height: 100vh;
+}
+
+/* ── Nav ──────────────────────────────────────────────────── */
+nav {
+    background: var(--nav-bg);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 48px;
+}
+
+nav a {
+    color: var(--nav-fg);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background 150ms, color 150ms;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+    background: oklch(32% 0.010 240);
+    color: var(--nav-fg-hover);
+}
+
+/* ── Main layout ──────────────────────────────────────────── */
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
 }
 
 h1 {
-    color: #333;
+    font-size: 1.44rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+    color: var(--text);
 }
 
+h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 28px 0 12px;
+    color: var(--text);
+}
+
+/* ── Links ────────────────────────────────────────────────── */
 a {
-    color: #0066cc;
+    color: var(--accent);
     text-decoration: none;
 }
+a:hover { text-decoration: underline; color: var(--accent-hover); }
 
-a:hover {
-    text-decoration: underline;
+/* ── Buttons ──────────────────────────────────────────────── */
+button,
+.btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 16px;
+    border: none;
+    border-radius: var(--radius);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--accent);
+    color: var(--accent-fg);
+    transition: background 150ms;
+    text-decoration: none;
+}
+button:hover, .btn:hover { background: var(--accent-hover); text-decoration: none; color: var(--accent-fg); }
+
+.btn-reset {
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 150ms;
+}
+.btn-reset:hover { background: var(--border); color: var(--text); text-decoration: none; }
+
+.btn-danger {
+    color: var(--danger);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+.btn-danger:hover { color: var(--danger-hover); text-decoration: underline; }
+
+/* ── Forms ────────────────────────────────────────────────── */
+.form-card {
+    background: oklch(99% 0.005 240);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    max-width: 480px;
 }
 
-nav {
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+.form-group:last-child { margin-bottom: 0; }
+
+label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="email"],
+textarea,
+select {
+    font: inherit;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: oklch(99% 0.005 240);
+    color: var(--text);
+    transition: border-color 150ms, box-shadow 150ms;
+    width: 100%;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px oklch(48% 0.18 245 / 0.15);
+}
+
+textarea { resize: vertical; min-height: 80px; }
+
+input[type="file"] {
+    font: inherit;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    padding: 4px 0;
+}
+
+/* ── Search bar ───────────────────────────────────────────── */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
     margin-bottom: 20px;
 }
 
-.card {
-    background: white;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.search-bar input[type="search"] { max-width: 260px; }
+.search-bar select               { max-width: 160px; }
+
+/* ── Result count ─────────────────────────────────────────── */
+.result-count {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
 }
 
-input, textarea {
-    width: 300px;
-    padding: 8px;
+/* ── Game table ───────────────────────────────────────────── */
+.game-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
 }
 
-button {
-    padding: 8px 12px;
+.game-table thead th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border);
 }
+
+.game-table tbody tr { border-bottom: 1px solid var(--border); }
+.game-table tbody tr:last-child { border-bottom: none; }
+.game-table tbody tr:hover { background: oklch(95% 0.008 240); }
+
+.game-table td {
+    padding: 10px 12px;
+    vertical-align: middle;
+}
+
+.cover-cell img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
+
+.no-cover { color: var(--text-muted); font-size: 1.2rem; }
+
+.actions { white-space: nowrap; }
+.actions a { margin-right: 12px; font-size: 0.875rem; }
+
+/* ── Member list ──────────────────────────────────────────── */
+.member-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.member-list li a {
+    display: block;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: oklch(99% 0.005 240);
+    color: var(--text);
+    font-weight: 500;
+    transition: background 150ms, border-color 150ms;
+    text-decoration: none;
+}
+
+.member-list li a:hover {
+    background: var(--surface-2);
+    border-color: var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* ── Member profile ───────────────────────────────────────── */
+.profile-card {
+    background: oklch(99% 0.005 240);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    max-width: 520px;
+}
+
+.profile-card h1 { margin-bottom: 16px; }
+
+.profile-field {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 8px 16px;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    align-items: baseline;
+}
+
+.profile-field dt {
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.profile-field dd { color: var(--text); }
+
+.profile-bio {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    max-width: 65ch;
+    line-height: 1.6;
+}
+
+/* ── Feedback messages ────────────────────────────────────── */
+.msg-success,
+.msg-error {
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    margin-bottom: 20px;
+}
+
+.msg-success { background: oklch(93% 0.06 150); color: oklch(30% 0.12 150); border: 1px solid oklch(80% 0.10 150); }
+.msg-error   { background: oklch(95% 0.06  25); color: oklch(35% 0.14  25); border: 1px solid oklch(82% 0.10  25); }
+
+/* ── Empty state ──────────────────────────────────────────── */
+.empty-state {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 32px 0;
+}
+
+/* ── Index page ───────────────────────────────────────────── */
+.index-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 320px;
+    margin-top: 8px;
+}
+
+.index-links li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: oklch(99% 0.005 240);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 150ms, border-color 150ms;
+}
+
+.index-links li a:hover {
+    background: var(--surface-2);
+    border-color: var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* ── Back link ────────────────────────────────────────────── */
+.back-link {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.back-link:hover { color: var(--accent); text-decoration: none; }
+
+/* ── Utility ──────────────────────────────────────────────── */
+.text-muted { color: var(--text-muted); }

@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/database/db.php';
 
 $db = get_pdo();
@@ -9,90 +8,83 @@ if (php_sapi_name() === 'cli' && isset($argv[1])) {
 }
 
 if (!isset($_GET['id'])) {
-
-    $results = $db->query("SELECT * FROM members");
-
-    echo "<!DOCTYPE html>
-<html>
+    $results = $db->query("SELECT * FROM members ORDER BY name");
+    $members = $results->fetchAll(PDO::FETCH_ASSOC);
+?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Group Members</title>
-<link rel='stylesheet' href='style.css'>
+    <meta charset="UTF-8">
+    <title>Members — Game Library</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>";
-
-echo "
+<body>
 <nav>
-<a href='index.php'>Home</a>
-<a href='games.php'>Games</a>
-<a href='add_game.php'>Add Game</a>
-<a href='member.php'>Members</a>
+    <a href="index.php">Home</a>
+    <a href="games.php">Games</a>
+    <a href="add_game.php">Add Game</a>
+    <a href="member.php" aria-current="page">Members</a>
 </nav>
-";
-    echo "<a href='index.php'>Home</a>";
-    echo "<h1>Group Members</h1>";
 
-    while ($row = $results->fetch()) {
-
-    echo "<div class='card'>";
-
-    echo "<a href='member.php?id=" . $row['id'] . "'>";
-
-    echo htmlspecialchars($row['name']);
-
-    echo "</a>";
-
-    echo "</div>";
-}
-
-    echo "</body></html>";
-
+<main>
+    <h1>Group Members</h1>
+    <?php if (empty($members)): ?>
+        <p class="empty-state">No members found.</p>
+    <?php else: ?>
+        <ul class="member-list">
+            <?php foreach ($members as $row): ?>
+                <li><a href="member.php?id=<?php echo (int) $row['id']; ?>"><?php echo htmlspecialchars($row['name']); ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</main>
+</body>
+</html>
+<?php
 } else {
-
-    $id = (int) $_GET['id'];
-
+    $id   = (int) $_GET['id'];
     $stmt = $db->prepare("SELECT * FROM members WHERE id = ?");
     $stmt->execute([$id]);
-    $result = $stmt->fetch();
-
-    echo "<!DOCTYPE html>
-<html>
-<head>
-<title>Member</title>
-<link rel='stylesheet' href='style.css'>
-</head>
-<body>";
-
-echo "
-<nav>
-<a href='index.php'>Home</a>
-<a href='games.php'>Games</a>
-<a href='add_game.php'>Add Game</a>
-<a href='member.php'>Members</a>
-</nav>
-";
-    echo "<a href='index.php'>Home</a>";
-
-    if ($result) {
-        echo "<div class='card'>";
-
-echo "<h1>" . htmlspecialchars($result['name']) . "</h1>";
-
-        echo "<p><strong>Student ID:</strong> "
-            . htmlspecialchars($result['student_id']) . "</p>";
-
-        echo "<p><strong>Email:</strong> "
-            . htmlspecialchars($result['email']) . "</p>";
-
-        echo "<p>" . htmlspecialchars($result['bio']) . "</p>";
-
-        echo "<p><a href='member.php'>Back to Group Members</a></p>";
-
-echo "</div>";
-    } else {
-        echo "<p>Member not found.</p>";
-    }
-
-    echo "</body></html>";
-}
-
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?php echo $result ? htmlspecialchars($result['name']) : 'Member'; ?> — Game Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+    <a href="index.php">Home</a>
+    <a href="games.php">Games</a>
+    <a href="add_game.php">Add Game</a>
+    <a href="member.php" aria-current="page">Members</a>
+</nav>
+
+<main>
+<?php if ($result): ?>
+    <div class="profile-card">
+        <h1><?php echo htmlspecialchars($result['name']); ?></h1>
+        <dl>
+            <div class="profile-field">
+                <dt>Student ID</dt>
+                <dd><?php echo htmlspecialchars($result['student_id']); ?></dd>
+            </div>
+            <div class="profile-field">
+                <dt>Email</dt>
+                <dd><?php echo htmlspecialchars($result['email']); ?></dd>
+            </div>
+        </dl>
+        <?php if (!empty($result['bio'])): ?>
+            <p class="profile-bio"><?php echo htmlspecialchars($result['bio']); ?></p>
+        <?php endif; ?>
+    </div>
+<?php else: ?>
+    <p class="empty-state">Member not found.</p>
+<?php endif; ?>
+    <a href="member.php" class="back-link">Back to members</a>
+</main>
+</body>
+</html>
+<?php } ?>
