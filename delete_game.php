@@ -7,7 +7,7 @@ $db = get_pdo();
 if (isset($_GET['id'])) {
 
     $stmt = $db->prepare(
-        "DELETE FROM games WHERE id = ?"
+        "DELETE FROM games WHERE game_id = ?"
     );
 
     $stmt->execute([

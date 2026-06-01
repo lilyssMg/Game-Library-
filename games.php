@@ -10,7 +10,7 @@ $db = get_pdo();
 $results = $db->query("SELECT * FROM games");
 while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
   $user_defined_games[] = [
-      $row['id'],
+      $row['game_id'],
       $row['title'],
       $row['genre'],
       $row['image'] ?? null,

@@ -4,10 +4,10 @@ require_once __DIR__ . '/database/db.php';
 
 $db = get_pdo();
 
-$id = $_GET['id'];
+$id = (int) ($_GET['id'] ?? 0);
 
 $stmt = $db->prepare(
-    "SELECT * FROM games WHERE id = ?"
+    "SELECT * FROM games WHERE game_id = ?"
 );
 
 $stmt->execute([$id]);
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         SET title = ?,
             genre = ?,
             description = ?
-        WHERE id = ?"
+        WHERE game_id = ?"
     );
 
     $stmt->execute([
