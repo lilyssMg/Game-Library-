@@ -75,9 +75,15 @@ while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
 
     <br><br>
 
-    <a href="delete_game.php?id=<?php echo $game[0]; ?>">
-        Delete
-    </a>
+    <a href="edit_game.php?id=<?php echo $game[0]; ?>">
+    Edit
+</a>
+
+|
+
+<a href="delete_game.php?id=<?php echo $game[0]; ?>">
+    Delete
+</a>
 
 </div>
 
