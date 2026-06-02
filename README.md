@@ -5,13 +5,15 @@ An open-source game library management web application developed collaboratively
 ## Project Goal
 The goal of this project is to create a simple dynamic website where users can browse and discover games through a web interface.The application will use PHP and a relational database to support basic CRUD operations for game information.
 
-## Planned Features
-- Display game titles
-- Display cover images
-- Short game descriptions
-- Search/filter games
+## Features
+- Browse and search games by title or description
+- Filter games by genre
+- Add, edit, and delete games
+- Upload cover images for games
+- View game descriptions
 - Store game information in a database
-
+- Group member profiles
+  
 ## Technologies
 - PHP
 - MariaDB
