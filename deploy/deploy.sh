@@ -64,6 +64,7 @@ apt-get install -y \
     mariadb-server \
     php \
     php-mysql \
+    php8.4-mysql \
     php-fileinfo \
     libapache2-mod-php \
     --no-install-recommends
@@ -81,7 +82,7 @@ else
 fi
 
 # Check required extensions
-for EXT in pdo pdo_mysql fileinfo; do
+for EXT in PDO pdo_mysql fileinfo; do
     if php -m | grep -q "^$EXT$"; then
         ok "PHP extension: $EXT"
     else
@@ -166,6 +167,8 @@ rsync -av --delete \
     --exclude='.remember/' \
     --exclude='database/members.db' \
     "$REPO_DIR/" "$APP_DIR/"
+
+mkdir -p "$APP_DIR/uploads"
 
 chown -R www-data:www-data "$APP_DIR"
 chmod -R 755 "$APP_DIR"
