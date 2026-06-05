@@ -56,20 +56,25 @@ else
 fi
 
 # ── 2. Install packages ───────────────────────────────────────
-step "Installing packages (apache2, php, mariadb-server)"
+step "Checking required packages"
 
-apt-get update -qq
-apt-get install -y \
-    apache2 \
-    mariadb-server \
-    php \
-    php-mysql \
-    php8.4-mysql \
-    php-fileinfo \
-    libapache2-mod-php \
-    --no-install-recommends
+PKGS_NEEDED=()
+command -v apache2    >/dev/null 2>&1 || PKGS_NEEDED+=(apache2)
+command -v mysqld     >/dev/null 2>&1 || dpkg -s mariadb-server &>/dev/null || PKGS_NEEDED+=(mariadb-server)
+command -v php        >/dev/null 2>&1 || PKGS_NEEDED+=(php)
+dpkg -s php-mysql     &>/dev/null     || PKGS_NEEDED+=(php-mysql)
+dpkg -s php8.4-mysql  &>/dev/null     || PKGS_NEEDED+=(php8.4-mysql)
+dpkg -s php-fileinfo  &>/dev/null     || PKGS_NEEDED+=(php-fileinfo)
+dpkg -s libapache2-mod-php &>/dev/null || PKGS_NEEDED+=(libapache2-mod-php)
 
-ok "Packages installed"
+if [[ ${#PKGS_NEEDED[@]} -gt 0 ]]; then
+    step "Installing missing packages: ${PKGS_NEEDED[*]}"
+    apt-get update -qq
+    apt-get install -y "${PKGS_NEEDED[@]}" --no-install-recommends
+    ok "Packages installed"
+else
+    ok "All packages already present — skipping apt-get"
+fi
 
 # ── 3. Check PHP version ──────────────────────────────────────
 step "Checking PHP version"
